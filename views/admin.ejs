@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/adminstyle.css" />
+</head>
+
+<body class="mainpage" style="height: 100%;">
+    <nav style="background-color: rgb(30, 26, 26);">
+        <div>
+            <a href="/" style="color: white; text-decoration:none; margin-left: 20px;" class="brand-logo"><b>NAZ</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <% if(registrert=='Admin' ) { %>
+                    <li><a href="/admin" style="color: white; text-decoration:none; font-size: 18px;"><b>Admin</b></a>
+                    </li>
+                    <% } %>
+                        <li><a href="/admin/products"
+                                style="color: white; text-decoration:none; font-size: 18px;"><b>Product</b></a></li>
+                        <li><a href="/admin/stocks"
+                                style="color: white; text-decoration:none; font-size: 18px;"><b>Sales</b></a></li>
+            </ul>
+        </div>
+    </nav>
+    <div style="width: 100%;">
+        <div class="box2">
+            <form action="/admin/time" method="post">
+                <div style="color: white; font-size: 20px;">
+                    <h2>
+                        Rewind time
+                    </h2>
+                    <label style="color: white; font-size: 20px;">Count of days</label>
+                    <input style="color: white; width: 130px; margin-left: 20%;" type="text" name="countOfDays"
+                        id="countOfDays" class="form-control" />
+                    <input value="Rewind" style="background-color: rgb(30, 26, 26); color: white; border-color: transparent;
+             border-radius: 15%;" type="submit">
+                </div>
+            </form>
+        </div>
+        <% if(infoarr.length > 0) { %> 
+        <div class="<%= boxh %>" style="text-align: center; align-items: center;">
+            <br>
+                <h4>
+                    <%= infoarr[0] %>
+                </h4>
+            <div class="gridbox3">
+                <% for(var i=1; i < infoarr.length; i++) { %>
+                    <div>
+                        <%= infoarr[i] %>
+                    </div>
+                    <% } %>
+                    <% if(secInfoArr.length > 0) { %> 
+                        <div style="margin-top: 50px;" class="gridbox4" id="prodDiv">
+                            <% for(var i=0; i < secInfoArr.length; i++) { %>
+                                <div style="margin-left: 25%;">
+                                    <img src="../prodimages/<%= secInfoArr[i].prodimg %>" width="75px" height="75px">
+                                    <div>
+                                        Name: <%= secInfoArr[i].prodname %>
+                                    </div>
+                                    <div>
+                                        Count: <%= secInfoArr[i].prodcount %>
+                                    </div>
+                                    <div>
+                                        Price: <%= (secInfoArr[i].prodprice * secInfoArr[i].prodcount).toFixed(2) %>$
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                        <form style="margin-left: 25%; position: relative; margin-top: 275px;" class="<%= formBox %>">
+                            <div style="display: flex; text-align: center; color: white;">
+                                <button onclick="anotherPage('<%= pagenum %>', '<')" type="button"
+                                    style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                    class="btn btn-primary">
+                                    < </button>
+                                        <div id="pagecount">&nbsp;&nbsp;<%= pagenum %>&nbsp;&nbsp;</div>
+                                        <button type="button" value=">" onclick="anotherPage('<%= pagenum %>', '>')"
+                                            style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                            class="btn btn-primary"> > </button>
+                            </div>
+                        </form>
+                    <% } %>
+            </div>
+            <br>
+        </div>
+        <% } %>
+        <div class="box3">
+            <h1>Years</h1>
+            <div style="margin: 5px;">
+                <% for(var i=0; i<yeararr.length; i++) { %>
+                    <form action="/admin/chooseYear" method="post">
+                        <div>
+                            <input value="<%= yeararr[i] %>" style=" margin-top: 5px; background-color: rgb(30, 26, 26); color: white; border-color: transparent;
+             border-radius: 15%;" type="submit" name="choosenYear" id="choosenYear">
+                        </div>
+                    </form>
+                    <% } %>
+            </div>
+        </div>
+        <% if(montharr.length > 0) { %>
+        <div class="box4">
+            <h1>Months</h1>
+            <div style="margin: 5px;">
+                <% for(var i=0; i < montharr.length; i++) { %>
+                    <form action="/admin/chooseMonth" method="post">
+                        <div>
+                            <input value="<%= montharr[i] %>" style=" margin-top: 5px; background-color: rgb(30, 26, 26); color: white; border-color: transparent;
+             border-radius: 15%;" type="submit" name="choosenMonth">
+                        </div>
+                    </form>
+                    <% } %>
+            </div>
+        </div>
+        <% } %>
+        <% if(dayarr.length > 0) { %>
+        <div class="box5">
+            <h1>Days</h1>
+            <div class="gridbox">
+                <% for(var i=0; i < dayarr.length; i++) { %>
+                    <form action="/admin/chooseDay" method="post">
+                        <div>
+                            <input value="<%= dayarr[i] %>" style="width: 30px; background-color: rgb(30, 26, 26); color: white; border-color: transparent;
+             border-radius: 15%;" type="submit" name="choosenDay">
+                        </div>
+                    </form>
+                    <% } %>
+            </div>
+            <br>
+        </div>
+        <% } %>
+        <% if(orders.length > 0) { %>
+        <div class="box6">
+            <h1>Orders</h1>
+            <div class="gridbox2">
+                <% for(var i=0; i < orders.length; i++) { %>
+                    <form action="/admin/chooseOrder" method="post">
+                        <div>
+                            <input value="<%= orders[i] %>" style="width: 80px; background-color: rgb(30, 26, 26); color: white; border-color: transparent;
+             border-radius: 15%;" type="submit" name="choosenOrder">
+                        </div>
+                    </form>
+                <% } %>
+            </div>
+            <br>
+        </div>
+        <% } %>
+        <div style="height: 350px; box-sizing: border-box; float: left; visibility: hidden;">
+        </div>
+    </div>
+    <script>
+        function anotherPage(value, action) {
+            $.ajax({
+                url: "http://127.0.0.1:4000/admin/anotherpage",
+                method: "POST",
+                data: {
+                    value: value,
+                    action: action,
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    var prodDiv = document.getElementById('prodDiv');
+                    document.getElementById('pagecount').innerHTML = '&nbsp;&nbsp;' + data.pagenum + '&nbsp;&nbsp;';
+                    prodDiv.innerHTML = "";
+                    data.array.forEach(element => {
+                        prodDiv.innerHTML += `
+                        <div style="margin-left: 25%;">
+                                        <img src="../prodimages/`+ element.prodimg + `" width="75px"
+                                            height="75px">
+                                        <div>
+                                            Name: `+ element.prodname + `
+                                        </div>
+                                        <div>
+                                            Count: `+ element.prodcount + `
+                                        </div>
+                                        <div>
+                                            Price: ` + (element.prodprice * element.prodcount).toFixed(2) + `$
+                                        </div>
+                                    </div>
+                        `
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

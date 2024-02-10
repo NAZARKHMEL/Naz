@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/productsstyle.css" />
+</head>
+
+<body class="mainpage" style="height: 100%;">
+    <nav style="background-color: rgb(30, 26, 26);">
+        <div>
+            <a href="/" style="color: white; text-decoration:none; margin-left: 20px;" class="brand-logo"><b>NAZ</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/admin" style="color: white; text-decoration:none; font-size: 18px;"><b>Admin</b></a></li>
+                <li><a href="/admin/stocks"
+                        style="color: white; text-decoration:none; font-size: 18px;"><b>Sales</b></a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="box2">
+                    <form action="/admin/products" method="post" enctype="multipart/form-data">
+                        <label style="color: white; font-size: 20px;">Name</label>
+                        <input style="color: white; width: 250px; margin-left: 15%;" type="text" name="name" id="name"
+                            class="form-control" />
+                        <label style="color: white; font-size: 20px;">Type</label>
+                        <select name="type" id="type" class="form-control"
+                            style="background-color: transparent; width: 250px; margin-left: 15%; color: white;">
+                            <option style="color: gray;" value="Pizza">Pizza</option>
+                            <option style="color: gray;" value="Drinks">Drinks</option>
+                            <option style="color: gray;" value="Sushi">Sushi</option>
+                            <option style="color: gray;" value="Burger">Burger</option>
+                        </select>
+                        <div class="mb-3">
+                            <label style="color: white; font-size: 20px;">Price</label>
+                            <input style="color: white; width: 250px; margin-left: 15%;" type="text" name="price"
+                                id="price" class="form-control" />
+                        </div>
+                        <label style="color: white; font-size: 20px;">Image</label>
+                        <input type="file" class="form-control" name="filetoupload"
+                            style="width: 250px; margin-left: 15%;" id="filetoupload">
+                        <br>
+                        <div class="mb-3">
+                            <input class="btn btn-success" name="addbtn" id="addbtn" value="Add" type="submit">
+                            <input class="btn btn-danger" name="delbtn" id="delbtn" value="Delete" type="submit">
+                            <input class="btn btn-warning" style="color: white;" name="updbtn" id="updbtn"
+                                value="Update" type="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <% if(confirm=='Add' ) { %>
+                    <div class="box2">
+                        <br>
+                        <img width="200px" height="200px" src="../prodimages/<%= imgsrc %>" style=" border-radius: 15%;"
+                            alt="">
+                        <br>    
+                        <br>
+                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                            <%= name %>
+                        </div>
+                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                            <hr>
+                        </div>
+                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                            <%= type %>
+                        </div>
+                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                            <hr>
+                        </div>
+                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                            <%= price %>$
+                        </div>
+                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                            <hr>
+                        </div>
+                        <form action="/admin/confirm" method="post">
+                            <div class="mb-3">
+                                <input class="btn btn-success" value="confirm" type="submit" name="btnConfirm">
+                                <input class="btn btn-danger" value="cancel" type="submit" name="btnCancel">
+                            </div>
+                        </form>
+                    </div>
+
+                    <% } %>
+                        <% if(confirm=='Delete' ) { %>
+                            <div class="box2">
+                                <br>
+                                <img width="200px" height="200px" src="../prodimages/<%= imgsrc %>"
+                                    style=" border-radius: 15%;" alt="">
+                                <br>
+                                <br>
+                                <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                    <%= name %>
+                                </div>
+                                <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                    <hr>
+                                </div>
+                                <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                    <%= type %>
+                                </div>
+                                <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                    <hr>
+                                </div>
+                                <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                    <%= price %>$
+                                </div>
+                                <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                    <hr>
+                                </div>
+                                <form action="/admin/confirmDel" method="post">
+                                    <div class="mb-3">
+                                        <input class="btn btn-success" value="confirm" type="submit" name="btnConfirm">
+                                        <input class="btn btn-danger" value="cancel" type="submit" name="btnCancel">
+                                    </div>
+                                </form>
+                            </div>
+                            <% } %>
+                                <% if(confirm=='Update' ) { %>
+                                    <div class="box2">
+                                        <br>
+                                        <img width="200px" height="200px" src="../prodimages/<%= imgsrc %>"
+                                            style=" border-radius: 15%;" alt="">
+                                        <br>
+                                        <br>
+                                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                            <%= name %>
+                                        </div>
+                                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                            <hr>
+                                        </div>
+                                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                            <%= type %>
+                                        </div>
+                                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                            <hr>
+                                        </div>
+                                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                            <%= price %>$
+                                        </div>
+                                        <div style="margin-left: 22%; width: 200px; text-align: center;">
+                                            <hr>
+                                        </div>
+                                        <form action="/admin/confirmDel" method="post">
+                                            <div class="mb-3">
+                                                <input class="btn btn-danger" value="cancel" type="submit" name="btnCancel">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <% } %>
+
+            </div>
+            <div class="col-md-4">
+                <% if(confirm=='Update' ) { %>
+                    <div class="box2">
+                        <form action="/admin/confirmupd" method="post" enctype="multipart/form-data">
+                            <h1>Update Form</h1>
+                            <label style="color: white; font-size: 20px;">Name</label>
+                            <input style="color: white; width: 250px; margin-left: 15%;" value="<%= name%>" type="text" name="name" id="name"
+                                class="form-control" />
+                            <label style="color: white; font-size: 20px;">Type</label>
+                            <select name="type" id="type" class="form-control"
+                                style="background-color: transparent; width: 250px; margin-left: 15%; color: white;">
+                                <option style="color: gray;" value="Pizza">Pizza</option>
+                                <option style="color: gray;" value="Drinks">Drinks</option>
+                                <option style="color: gray;" value="Sushi">Sushi</option>
+                                <option style="color: gray;" value="Burger">Burger</option>
+                            </select>
+                            <div class="mb-3">
+                                <label style="color: white; font-size: 20px;">Price</label>
+                                <input style="color: white; width: 250px; margin-left: 15%;" value="<%= price%>" type="text" name="price"
+                                    id="price" class="form-control" />
+                            </div>
+                            <label style="color: white; font-size: 20px;">Image</label>
+                            <input type="file" class="form-control" name="filetoupload"
+                                style="width: 250px; margin-left: 15%;" id="filetoupload">
+                            <br>
+                            <input type="text" style="visibility: hidden; width: 0.1px; height: 0.1px;" name="userid"
+                                id="userid" value="<%= userid %>">
+                            <input type="text" style="visibility: hidden; width: 0.1px; height: 0.1px;" name="imgsrc2"
+                                id="imgsrc2" value="<%= imgsrc %>">
+                            <input class="btn btn-success" value="Confirm" type="submit">
+                        </form>
+                        <br>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/indexstyle.css" />
+</head>
+
+<body class="mainpage">
+    <nav style="background-color: rgb(30, 26, 26);">
+        <div>
+            <a href="/" style="color: white; text-decoration:none; margin-left: 20px;" class="brand-logo"><b>NAZ</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <% if(registrert == "Yes" ) { %>
+                    <li><a href="/profile"
+                            style="color: white; text-decoration:none; font-size: 18px;"><b>Profile</b></a>
+                    </li>
+                    <li><a href="/bin" style="color: white; text-decoration:none; font-size: 18px; display: flex;"><b
+                                style="display: flex;">Cart
+                                <div id="prodantallcontainer">
+                                    <div id="prodCountAntall"></div>
+                                </div>
+                            </b></a>
+                    </li>
+                    <% } %>
+                        <% if(registrert=='Admin' ) { %>
+                            <li><a href="/admin"
+                                    style="color: white; text-decoration:none; font-size: 18px;"><b>Admin</b></a>
+                            </li>
+                            <% } %>
+                                <li><a href="/login" style="color: white; text-decoration:none; font-size: 18px;"><b>Log
+                                            In</b></a></li>
+                                <li><a href="/registrate"
+                                        style="color: white; text-decoration:none; font-size: 18px;"><b>Registration</b></a>
+                                </li>
+            </ul>
+        </div>
+    </nav>
+    <% if(action == "list1" ) { %>
+        <div class="boxcont" style="margin-top: 10px;">
+            <div class="box">
+                <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px;">
+                    <div>
+                        <input type="submit" class="imganim" style="width: 120px; height: 120px;" value="">
+                    </div>
+                    <form action="/drinks" method="get">
+                        <div>
+                            <input type="submit" class="imganim" style="background-image: url('drinks.png');" value="">
+                        </div>
+                    </form>
+                    <form action="/sushi" method="get">
+                        <div>
+                            <input type="submit" class="imganim" style="background-image: url('sushi.png');" value="">
+                        </div>
+                    </form>
+                    <form action="/burger" method="get">
+                        <div>
+                            <input type="submit" class="imganim" style="background-image: url('burger.png');" value="">
+                        </div>
+                    </form>
+        
+                </div>
+                <div class="gridbox" id="prodDiv">
+                    <% for(var i=0; i<products.length; i++) { %>
+                        <form>
+                            <div style="align-items: center; text-align: center;" id="prodBox">
+                                <div style="text-align: center;">
+                                    <% if(products[i].price.includes('-')) { %>
+                                        <s style="color: red;">
+                                            <%= products[i].price.slice(0, products[i].price.indexOf('-')) %>
+                                        </s>-><%= products[i].price.slice(products[i].price.indexOf('-')+1) %>$
+                                            <% } else { %>
+                                                <%= products[i].price %>$
+                                                    <% } %>
+                                </div>
+                                <img width="120px" height="120px" style="border-radius: 25%;"
+                                    src="../prodimages/<%= products[i].img%>" alt="">
+                                <div>
+                                    <%= products[i].name %>
+                                </div>
+                                <button
+                                    onclick="addProduct('<%= products[i].name %>', '<%= products[i].price %>', '<%= products[i].img %>')"
+                                    style="background-color: rgb(30, 26, 26); color: white; border-color: transparent; border-radius: 15%;"
+                                    type="button">Add</button>
+                            </div>
+                        </form>
+                        <% } %>
+                </div>
+                <div>
+                    <form style="margin-left: 45%; position: relative; margin-top: 40px;">
+                        <div style="display: flex; text-align: center; color: white;">
+                            <button onclick="anotherPage('<%= pagenum %>', '<')" type="button"
+                                style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                class="btn btn-primary">
+                                < </button>
+                                    <div id="pagecount">&nbsp;&nbsp;<%= pagenum %>&nbsp;&nbsp;</div>
+                                    <button type="button" value=">" onclick="anotherPage('<%= pagenum %>', '>')"
+                                        style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                        class="btn btn-primary"> > </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <% } else if(action=='list2' ) { %>
+            <div class="boxcont" style="margin-top: 10px;">
+                <div class="box">
+                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px;">
+                        <form action="/" method="get">
+                            <div>
+                                <input type="submit" class="imganim" value="">
+                            </div>
+                        </form>
+                        <div>
+                            <input type="submit" class="imganim"
+                                style="width: 120px; height: 120px; background-image: url('drinks.png');" value="">
+                        </div>
+                        <form action="/sushi" method="get">
+                            <div>
+                                <input type="submit" class="imganim" style="background-image: url('sushi.png');" value="">
+                            </div>
+                        </form>
+                        <form action="/burger" method="get">
+                            <div>
+                                <input type="submit" class="imganim" style="background-image: url('burger.png');" value="">
+                            </div>
+                        </form>
+        
+                    </div>
+                    <div class="gridbox" id="prodDiv">
+                        <% for(var i=0; i<products.length; i++) { %>
+                            <form>
+                                <div style="align-items: center; text-align: center;" id="prodBox">
+                                    <div style="text-align: center;">
+                                        <% if(products[i].price.includes('-')) { %>
+                                            <s style="color: red;">
+                                                <%= products[i].price.slice(0, products[i].price.indexOf('-')) %>
+                                            </s>-><%= products[i].price.slice(products[i].price.indexOf('-')+1) %>$
+                                                <% } else { %>
+                                                    <%= products[i].price %>$
+                                                        <% } %>
+                                    </div>
+                                    <img width="120px" height="120px" style="border-radius: 25%;"
+                                        src="../prodimages/<%= products[i].img%>" alt="">
+                                    <div>
+                                        <%= products[i].name %>
+                                    </div>
+                                    <button
+                                        onclick="addProduct('<%= products[i].name %>', '<%= products[i].price %>', '<%= products[i].img %>')"
+                                        style="background-color: rgb(30, 26, 26); color: white; border-color: transparent; border-radius: 15%;"
+                                        type="button">Add</button>
+                                </div>
+                            </form>
+                            <% } %>
+                    </div>
+                    <div>
+                        <form style="margin-left: 45%; position: relative; margin-top: 40px;">
+                            <div style="display: flex; text-align: center; color: white;">
+                                <button onclick="anotherPage('<%= pagenum %>', '<')" type="button"
+                                    style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                    class="btn btn-primary">
+                                    < </button>
+                                        <div id="pagecount">&nbsp;&nbsp;<%= pagenum %>&nbsp;&nbsp;</div>
+                                        <button type="button" value=">" onclick="anotherPage('<%= pagenum %>', '>')"
+                                            style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                            class="btn btn-primary"> > </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% } else if(action=='list3' ) { %>
+                <div class="boxcont" style="margin-top: 10px;">
+                    <div class="box">
+                        <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px;">
+                            <form action="/" method="get">
+                                <div>
+                                    <input type="submit" class="imganim" value="">
+                                </div>
+                            </form>
+                            <form action="/drinks" method="get">
+                                <div>
+                                    <input type="submit" class="imganim" style="background-image: url('drinks.png');" value="">
+                                </div>
+                            </form>
+                            <div>
+                                <input type="submit" class="imganim"
+                                    style="width: 120px; height: 120px; background-image: url('sushi.png');" value="">
+                            </div>
+                            <form action="/burger" method="get">
+                                <div>
+                                    <input type="submit" class="imganim" style="background-image: url('burger.png');" value="">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="gridbox" id="prodDiv">
+                            <% for(var i=0; i<products.length; i++) { %>
+                                <form>
+                                    <div style="align-items: center; text-align: center;" id="prodBox">
+                                        <div style="text-align: center;">
+                                            <% if(products[i].price.includes('-')) { %>
+                                                <s style="color: red;">
+                                                    <%= products[i].price.slice(0, products[i].price.indexOf('-')) %>
+                                                </s>-><%= products[i].price.slice(products[i].price.indexOf('-')+1) %>$
+                                                    <% } else { %>
+                                                        <%= products[i].price %>$
+                                                            <% } %>
+                                        </div>
+                                        <img width="120px" height="120px" style="border-radius: 25%;"
+                                            src="../prodimages/<%= products[i].img%>" alt="">
+                                        <div>
+                                            <%= products[i].name %>
+                                        </div>
+                                        <button
+                                            onclick="addProduct('<%= products[i].name %>', '<%= products[i].price %>', '<%= products[i].img %>')"
+                                            style="background-color: rgb(30, 26, 26); color: white; border-color: transparent; border-radius: 15%;"
+                                            type="button">Add</button>
+                                    </div>
+                                </form>
+                                <% } %>
+                        </div>
+                        <div>
+                            <form style="margin-left: 45%; position: relative; margin-top: 40px;">
+                                <div style="display: flex; text-align: center; color: white;">
+                                    <button onclick="anotherPage('<%= pagenum %>', '<')" type="button"
+                                        style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                        class="btn btn-primary">
+                                        < </button>
+                                            <div id="pagecount">&nbsp;&nbsp;<%= pagenum %>&nbsp;&nbsp;</div>
+                                            <button type="button" value=">" onclick="anotherPage('<%= pagenum %>', '>')"
+                                                style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                                class="btn btn-primary"> > </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <% } else if(action=='list4' ) { %>
+                    <div class="boxcont" style="margin-top: 10px;">
+                        <div class="box">
+                            <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px;">
+                                <form action="/" method="get">
+                                    <div>
+                                        <input type="submit" class="imganim" value="">
+                                    </div>
+                                </form>
+                                <form action="/drinks" method="get">
+                                    <div>
+                                        <input type="submit" class="imganim" style="background-image: url('drinks.png');"
+                                            value="">
+                                    </div>
+                                </form>
+                                <form action="/sushi" method="get">
+                                    <div>
+                                        <input type="submit" class="imganim" style="background-image: url('sushi.png');"
+                                            value="">
+                                    </div>
+                                </form>
+                                <div>
+                                    <input type="submit" class="imganim"
+                                        style="width: 120px; height: 120px; background-image: url('burger.png');" value="">
+                                </div>
+        
+                            </div>
+                            <div class="gridbox" id="prodDiv">
+                                <% for(var i=0; i<products.length; i++) { %>
+                                    <form>
+                                        <div style="align-items: center; text-align: center;" id="prodBox">
+                                            <div style="text-align: center;">
+                                                <% if(products[i].price.includes('-')) { %>
+                                                    <s style="color: red;">
+                                                        <%= products[i].price.slice(0, products[i].price.indexOf('-')) %>
+                                                    </s>-><%= products[i].price.slice(products[i].price.indexOf('-')+1) %>$
+                                                        <% } else { %>
+                                                            <%= products[i].price %>$
+                                                                <% } %>
+                                            </div>
+                                            <img width="120px" height="120px" style="border-radius: 25%;"
+                                                src="../prodimages/<%= products[i].img%>" alt="">
+                                            <div>
+                                                <%= products[i].name %>
+                                            </div>
+                                            <button
+                                                onclick="addProduct('<%= products[i].name %>', '<%= products[i].price %>', '<%= products[i].img %>')"
+                                                style="background-color: rgb(30, 26, 26); color: white; border-color: transparent; border-radius: 15%;"
+                                                type="button">Add</button>
+                                        </div>
+                                    </form>
+                                    <% } %>
+                            </div>
+                            <div>
+                                <form style="margin-left: 45%; position: relative; margin-top: 40px;">
+                                    <div style="display: flex; text-align: center; color: white;">
+                                        <button onclick="anotherPage('<%= pagenum %>', '<')" type="button"
+                                            style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                            class="btn btn-primary">
+                                            < </button>
+                                                <div id="pagecount">&nbsp;&nbsp;<%= pagenum %>&nbsp;&nbsp;</div>
+                                                <button type="button" value=">"
+                                                    onclick="anotherPage('<%= pagenum %>', '>')"
+                                                    style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);"
+                                                    class="btn btn-primary"> > </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                        <script>
+                            window.onload = function () {
+                                if ("<%= prodantall %>" < 1) {
+                                    document.getElementById('prodantallcontainer').style.className = 'prodhidden';
+                                }
+                                else {
+                                    document.getElementById('prodantallcontainer').className = "circle";
+                                    document.getElementById('prodCountAntall').innerHTML = "<%= prodantall %>";
+                                }
+                            }
+                            function addProduct(value, value2, value3) {
+                                $.ajax({
+                                    url: "http://127.0.0.1:4000/",
+                                    method: "POST",
+                                    data: {
+                                        action: 'fetch',
+                                        value: value,
+                                        value2: value2,
+                                        value3: value3,
+                                    },
+                                    dataType: "JSON",
+                                    success: function (data) {
+                                        document.getElementById('prodCountAntall').innerHTML = data.data;
+                                        document.getElementById('prodantallcontainer').className = "circle";
+                                    }
+                                });
+                            }
+                            function anotherPage(value, action) {
+                                $.ajax({
+                                    url: "http://127.0.0.1:4000/anotherpage",
+                                    method: "POST",
+                                    data: {
+                                        value: value,
+                                        action: action,
+                                    },
+                                    dataType: "JSON",
+                                    success: function (data) {
+                                        var prodDiv = document.getElementById('prodDiv');
+                                        document.getElementById('pagecount').innerHTML = '&nbsp;&nbsp;' + data.pagenum + '&nbsp;&nbsp;';
+                                        prodDiv.innerHTML = "";
+                                        data.array.forEach(element => {
+                                            var buffer = element.price
+                                            if (element.price.includes('-')) {
+                                                buffer = `<s style="color: red;">` + element.price.slice(0, element.price.indexOf('-')) + `</s>->` + element.price.slice(element.price.indexOf('-') + 1);
+                                            }
+                                            else {
+                                                buffer = element.price + `$`;
+                                            }
+                                            prodDiv.innerHTML += `
+                                    <form>
+                            <div style="align-items: center; text-align: center;" id="prodBox">
+                                <div style="text-align: center;">
+                                    `+ buffer + `
+                                </div>
+                                <img width="120px" height="120px" style="border-radius: 25%;" src="../prodimages/`+ element.img + `" alt="">
+                                <div
+                                >
+                                    `+ element.name + `
+                                </div>
+                                <button
+                                    onclick="addProduct('`+ element.name + `', '` + element.price + `', '` + element.img + `')"
+                                    style="background-color: rgb(30, 26, 26); color: white; border-color: transparent; border-radius: 15%;"
+                                    type="button">Add</button>
+                            </div>
+                        </form>
+                        `
+                                        });
+                                    }
+                                });
+                            }
+                        </script>
+</body>
+
+</html>

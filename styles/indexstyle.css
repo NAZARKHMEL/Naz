@@ -1,0 +1,81 @@
+.mainpage {
+    background-image: url('backgroundimg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.imganim {
+    border-radius: 15%;
+    width: 75px;
+    height: 75px;
+    background-image: url('pizza.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
+    transition: width 0.3s, height 0.3s;
+}
+
+.imganim:hover {
+    width: 120px;
+    height: 120px;
+}
+
+.imganim:active {
+    width: 120px;
+    height: 120px;
+}
+
+.box {
+    border: 3px solid black;
+    color: white;
+    border-radius: 15%;
+    width: 750px;
+    height: 970px;
+    align-items: center;
+    justify-content: center;
+    background-image: url('backgroundmenu.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
+}
+
+.gridbox {
+    margin-top: 50px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: 175px 175px 175px;
+    grid-template-rows: 200px 200px 200px;
+}
+
+.gridbox>div {
+    padding: 1px;
+}
+
+.boxcont {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prodhidden {
+    visibility: hidden;
+}

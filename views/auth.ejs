@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/authstyle.css" /> 
+</head>
+
+<body class="mainpage">
+    <nav style="background-color: rgb(30, 26, 26); position: fixed;">
+        <div>
+            <a href="/" style="color: white; text-decoration:none; margin-left: 20px;" class="brand-logo"><b>NAZ</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/login" style="color: white; text-decoration:none; font-size: 18px;"><b>Log In</b></a></li>
+                <li><a href="/registrate"
+                        style="color: white; text-decoration:none; font-size: 18px;"><b>Registration</b></a></li>
+            </ul>
+        </div>
+    </nav>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <% if(action=='login' ) { %>
+            <div class="boxcont">
+                <div class="box">
+                    <form method="POST" action="/login">
+                        <div class="card-header"><b>Login Form</b></div>
+                        <% if(login != 'false' ) { %>
+                            <label>Login</label>
+                            <input style="color: white;" type="text" name="login" id="login" class="form-control" />
+                            <label>Password</label>
+                            <input type="password" name="password" id="password" class="form-control" />
+                            <input type="submit" name="submit_button" class="btn btn-primary" style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);" value="Login" />
+                            <% } else { %>
+                                <label>Login</label>
+                                <input style="color: white;" type="text" name="login" id="login" class="form-control" />
+                                <label>Password</label>
+                                <input type="password" name="password" id="password" class="form-control" />
+                                <label style="color: red;" class="form-control">Login or password is inccorect</label>
+                                <input type="submit" name="submit_button" class="btn btn-primary" style="background-color: rgb(30, 26, 26);" value="Login" />
+                            <% }%>
+                    </form>
+                </div>
+            </div>
+    </div>
+    <% } else if(action=='registrate' ) { %>
+        <div class="boxcont">
+            <div class="box">
+                <form method="POST" action="/registrate">
+                    <div class="card-header"><b>Registration Form</b></div>
+                    <div>
+                        <% if(login=='false' ) { %>
+                            <label style="color: red;">Login is already in use</label>
+                            <% } else { %>
+                                <label>Login</label>
+                            <% }%>
+                        <input style="color: white;" type="text" name="login" id="login" class="form-control" />
+                    </div>
+                    <label>Password</label>
+                    <input  type="password" name="password" id="password" class="form-control" />
+                    <label>Email</label>
+                    <input style="color: white;" type="email" name="email" id="email" class="form-control" />
+                    <label>Allow sending messages</label>
+                    <select name="adds" class="form-control" style="background-color: transparent; color: gray;">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <input type="submit" name="submit_button" class="btn btn-primary" style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);" value="Registrate" />
+
+                </form>
+            </div>
+        </div>
+        <% } %>
+            </div>
+</body>
+
+</html>

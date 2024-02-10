@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/profilestyle.css" />
+</head>
+
+<body class="mainpage">
+    <nav style="background-color: transparent; background-color: rgb(30, 26, 26); position: fixed;">
+        <div>
+            <a href="/" style="color: white; text-decoration:none; margin-left: 20px;" class="brand-logo"><b>NAZ</b></a>
+        </div>
+    </nav>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="boxcont">
+            <div class="box">
+                <form method="POST" action="/profile/update">
+                    <div class="card-header"><b>Update Form</b></div>
+                    <label>Login</label>
+                    <input style="color: white;" type="text" name="login" id="login" value="<%= login %>"
+                        class="form-control" />
+                    <label>Email</label>
+                    <input style="color: white;" type="email" name="email" id="email" value="<%= email %>" class="form-control" />
+                    <label>Current Password</label>
+                    <input type="password" name="curpassword" id="curpassword" class="form-control" />
+                    <label>New Password</label>
+                    <input type="password" name="newpassword" id="newpassword" class="form-control" />
+                    <label>Allow sending messages</label>
+                    <% if(messages == "No") { %> 
+                        <select name="adds" class="form-control"
+                            style="background-color: transparent; color: gray;">
+                            <option value="Yes">Yes</option>
+                            <option value="No" selected>No</option>
+                        </select>
+                    <% } else { %>
+                        <select name="adds" class="form-control"
+                            style="background-color: transparent; color: gray;">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                   <% } %>
+                    
+                        <input type="submit" name="submit_button" class="btn btn-primary"
+                            style="background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);" value="Update" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

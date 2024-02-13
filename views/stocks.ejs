@@ -38,7 +38,7 @@
                 &nbsp;
                 &nbsp;
                 <% if(typ==1) { %>
-                    <form action="op" method="post">
+                    <form action="stocks/op" method="post">
                         <button style="
                 background-color: rgb(30, 26, 26); border-color: rgb(30, 26, 26);" class="btn btn-primary">↑</button>
                     </form>
@@ -51,7 +51,7 @@
                         <% } %>
             </div>
             <% if(typ==1) { %>
-                <form action="create" method="post">
+                <form action="stocks/create" method="post">
                     <div class="gridbox">
                         <h4>Product Name:</h4>
                         <input style="color: white; width: 250px;" type="text" name="prodname" id="prodname"
@@ -121,7 +121,7 @@
     <script>
         function delProduct(value1) {
             $.ajax({
-                url: "http://127.0.0.1:4000/admin/stocks/delete",
+                url: "https://naznodejsproject.azurewebsites.net/stocks/delete",
                 method: "POST",
                 data: {
                     value1: value1,
@@ -135,7 +135,7 @@
             var myInput = document.getElementById(value1);
             var inputValue = myInput.value;
             $.ajax({
-                url: "http://127.0.0.1:4000/admin/stocks/update",
+                url: "https://naznodejsproject.azurewebsites.net/stocks/update",
                 method: "POST",
                 data: {
                     value1: inputValue,

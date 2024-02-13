@@ -3,16 +3,22 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    display: block;
 }
 .box3 {
     margin-top: 10px;
     width: 80%;
     height: auto;
-}
-.gridbox3 {
     align-items: center;
     justify-content: center;
+    text-align: center;
+
+}
+.gridbox3 {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
     display: grid;
     height: 250px;
     grid-gap: 15px;

@@ -16,6 +16,7 @@ async function config () {
       encrypt: true
     }
   }
+  //JoelMK,Say10,Schumacca_Hagen_hermanformo_Makka,hermanformo,usrVAC_Amenguderstor_LUCKYOWL,kadalsaune_Bdbsbsijz_hkvi,testtingindholdpd_Test2,ELcashman,
   // Functions for creating all tables
   // const tableExists = async (tableName) => {
   //   try {

@@ -30,7 +30,7 @@
                     <% } %>
                         <li><a href="/admin/products"
                                 style="color: white; text-decoration:none; font-size: 18px;"><b>Product</b></a></li>
-                        <li><a href="/admin/stocks"
+                        <li><a href="/stocks"
                                 style="color: white; text-decoration:none; font-size: 18px;"><b>Sales</b></a></li>
             </ul>
         </div>
@@ -162,7 +162,7 @@
     <script>
         function anotherPage(value, action) {
             $.ajax({
-                url: "http://127.0.0.1:4000/admin/anotherpage",
+                url: "https://naznodejsproject.azurewebsites.net/admin/anotherpage",
                 method: "POST",
                 data: {
                     value: value,

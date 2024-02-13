@@ -1,9 +1,6 @@
 import express from 'express';
 import * as path from 'path';
 import routes from '../routes/routes.js';
-import adminroutes from '../routes/adminroutes.js';
-import profileroutes from '../routes/profileroutes.js';
-import stocksroutes from '../routes/stocksroutes.js';
 import * as engines from 'consolidate';
 import config from './db.config.js'
 import { fileURLToPath } from 'url';
@@ -30,11 +27,8 @@ app.use("/images", express.static('images'));
 app.use("/styles", express.static('styles'));
 
 app.use("/", routes.router);
-app.use("/admin", adminroutes.router);
-app.use("/profile", profileroutes.router);
-app.use("/admin/stocks", stocksroutes.router);
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 });
